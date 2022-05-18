@@ -1,0 +1,16 @@
+{
+  "name": "my-bad-bank",
+  "version": "1.0.0",
+  "description": "Bank App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "email-validator": "^2.0.4",
+    "formik": "^2.2.9",
+    "yup": "^0.32.11"
+  }
+}
