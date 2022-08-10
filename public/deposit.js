@@ -1,18 +1,16 @@
 function Deposit() {
-    const ctx = React.useContext(UserContext);
-    const users = ctx.users;
     const [show, setShow] = React.useState(true);
     const [status, setStatus] = React.useState('');
     const [deposit, setDeposit] = React.useState('');
     const [balance, setBalance] = React.useState('');
     
-    const userData = users.find((el)=> {
-        if(el.value === true) {
-            return el;
-        }
-    });
+    // const userData = users.find((el)=> {
+    //     if(el.value === true) {
+    //         return el;
+    //     }
+    // });
 
-    const header = `${userData.name}, Make A Deposit`;
+    // const header = `${userData.name}, Make A Deposit`;
     
     function validate(deposit){
         if (deposit <= 0) {
@@ -33,14 +31,23 @@ function Deposit() {
     }
 
     function handleDeposit() {
-        let initial = userData.balance;
         if (!validate(deposit)) return;
-        let deposit1 = Number(deposit);
-        setBalance(initial += deposit1);
-        setUserBalance(initial, deposit);
-        console.log('New Balance: ' + userData.balance);
+        let amount = Number(deposit) + initial;
+        console.log('Deposit of ' + amount + ' made.');
+        const url = `/account/update/${email}/${amount}`;
+        (async () => {
+            var res = await fetch(url);
+            var data = await res.json();
+            console.log(data);
+        })();
         setShow(false);
-    }   
+    };
+        // let initial = userData.balance;
+        // let deposit1 = Number(deposit);
+        // setBalance(initial += deposit1);
+        // setUserBalance(initial, deposit);
+        // console.log('New Balance: ' + userData.balance);
+        // setShow(false);
 
     function clearForm(){
         setDeposit('');
@@ -50,12 +57,12 @@ function Deposit() {
     return(
        <Card
         bgcolor="primary"
-        header={header}
+        // header={header}
         status={status}
         body={show ? (
             <>
             Balance: 
-            <div key="balance" className="balance" id="balance" value={userData.balance.toFixed(2)}>{userData.balance.toFixed(2)}</div><br/>
+            {/* <div key="balance" className="balance" id="balance" value={userData.balance.toFixed(2)}>{userData.balance.toFixed(2)}</div><br/> */}
             Deposit<br/>
             <input type="input" className="form-control" id="deposit" placeholder="0" value={deposit} onChange={e=> setDeposit(e.currentTarget.value)} /><br/>
             <button disabled={!deposit} type="submit" className="btn btn-light" onClick={handleDeposit}>Deposit</button>

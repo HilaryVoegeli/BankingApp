@@ -6,7 +6,6 @@ function CreateAccount() {
     const [errName, seterrName] = React.useState('');
     const [errEmail, seterrEmail] = React.useState('');
     const [errPassword, seterrPassword] = React.useState('');
-    const ctx = React.useContext(UserContext);
 
     function valEmail(value) {
         let email1 = document.getElementById('email').value;
@@ -50,10 +49,15 @@ function CreateAccount() {
             }, 5000
             );
         } else {
-            console.log('Account successly created');
-            { ctx.users.push({name, email, password, balance: 100, value: false});
+            console.log('Account successly created: ' + name + ', ' + email + ', ' + password);
+            const url = `account/create/${name}/${email}/${password}`;
+            (async () => {
+                var res = await fetch(url);
+                var data = await res.json();
+                console.log(data);
+            })();
             setShow(false);
-       }}}
+       }};
 
     function clearForm(){
         setName('');

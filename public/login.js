@@ -3,33 +3,27 @@ function Login() {
     const [status, setStatus] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const ctx = React.useContext(UserContext);
-    const users = ctx.users;
     
+    // db = db.getSiblingDB("myproject");
+      
     function handleLogin() {
-        console.log(users);
-        const userData = users.find((el)=> {
-            if(el.email.toLowerCase() === email.toLowerCase()) {
-                return el;
-            }
-        });
-            if (userData == null) alert('Invaid Email');
-            if (userData.password !== password) alert('Invaid Password')
-            else {
-                userData.value = !userData.value;
-                console.log(userData);
-                setShow(false);
-            }
-        };
+        //NO VALIDATION//
+        // let user = db.getCollection("users").find({email});
+        //     if (user.password !== password) alert('Invaid Password');
+        //     else {
+       const url = `account/login/${email}/${password}`;
+       (async () => {
+          var res = await fetch(url);
+          var data = await res.json();
+          console.log(data);
+        })();
+        console.log('Hello ' + email)
+        setShow(false);
+    };
 
     function clearForm(){
         setEmail('');
         setPassword('');
-        const userData = users.find((el)=> {
-            if(el.email.toLowerCase() === email.toLowerCase()) {
-                return el;
-            }
-        });
         setShow(true);
     }
 
@@ -54,4 +48,4 @@ function Login() {
         )}
        />
     )
-}
+};
