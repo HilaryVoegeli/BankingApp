@@ -3,23 +3,16 @@ function Login() {
     const [status, setStatus] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    
-    // db = db.getSiblingDB("myproject");
-      
-    function handleLogin() {
-        //NO VALIDATION//
-        // let user = db.getCollection("users").find({email});
-        //     if (user.password !== password) alert('Invaid Password');
-        //     else {
-       const url = `account/login/${email}/${password}`;
-       (async () => {
+
+    const login = () => {
+        const url = `/account/login/${email}/${password}`;
+        (async () => {
           var res = await fetch(url);
           var data = await res.json();
-          console.log(data);
         })();
-        console.log('Hello ' + email)
+        console.log('Hello ' + email);
         setShow(false);
-    };
+        };
 
     function clearForm(){
         setEmail('');
@@ -30,22 +23,23 @@ function Login() {
     return(
        <Card
         bgcolor="warning"
-        header="Log In/Log Out"
+        header="Log In"
         status={status}
         body={show ? (
             <>
             Email<br/>
-                <input type="input" className="form-control" id="email" placeholder="Enter Email" value={email} onChange={e=> setEmail(e.currentTarget.value)} /><br/>
+                <input placeholder="Enter Email" onChange={e => setEmail(e.target.value)} /><br/>
             Password<br/>
-                <input type="input" className="form-control" id="password" placeholder="Enter Password" value={password} onChange={e=> setPassword(e.currentTarget.value)} /><br/>
-            <button disabled={!email || !password} type="submit" className="btn btn-light" onClick={handleLogin}>Log In/Log Out</button>
+                <input placeholder="Enter Password" onChange={e => setPassword(e.target.value)} /><br/>
+            <button disabled={!email || !password} onClick={login}>Log In</button><br/>
             </>
          ):(
             <>
-            <h5>Success!</h5>
-            <button type="submit" className="btn btn-light" onClick={clearForm}>Go Back to the Form</button>
+            <h5>Success! You are now logged into your account.</h5>
+            {/* <button type="submit" className="btn btn-light" onClick={clearForm}>Go Back to the Form</button> */}
             </>
-        )}
+        )
+    }
        />
     )
-};
+    };
