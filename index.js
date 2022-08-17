@@ -1,11 +1,27 @@
 var express = require('express');
-var app = express();
 var cors = require('cors');
 var dal = require('./dal.js');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+const expressSession = require('express-session');
+var app = express();
+
+//Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors({
+    origin:"http://localhost:3000",
+    credentials: true
+}));
+app.use(expressSession({
+    secret: "secretcode",
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(cookieParser("secretcode"));
 
 //serve static files
 app.use(express.static('public'));
-app.use(cors());
 
 //create user account
 app.get('/account/create/:name/:email/:password', function (req, res) {
@@ -16,12 +32,43 @@ app.get('/account/create/:name/:email/:password', function (req, res) {
 });
 
 //login
-app.get('/account/login/:email/:password', function (req, res) {
-    dal.findOne(req.params.email, req.params.password).then((user) => {
-        console.log(user)
-        res.send(user);
+app.get('/account/login/:email/:password/', function (req, res) {
+    dal.login(req.params.email, req.params.password).then((user, err) => {
+        if (err) throw err;
+        else if (user == null) {
+            res.send({result: "No User Exists"});
+            return;
+        } else if (user.password !== req.params.password) {
+            res.send({result: "Invaild Password"});
+            return;
+        } else {
+            // res.send({result: "Successfully Logged In"});
+            dal.log(req.params.email).then((user, err) => {
+                if (err) throw err;
+                else console.log('Welcome to the bank ' + user);
+            });
+        }
+        })
     });
-});
+
+//logout
+app.get('/account/logout/:email/:password/', function (req, res) {
+    dal.login(req.params.email, req.params.password).then((user, err) => {
+        if (err) throw err;
+        else if (user == null) {
+            res.send({result: "No User Exists"});
+            return;
+        } else if (user.password !== req.params.password) {
+            res.send({result: "Invaild Password"});
+            return;
+        } else {
+            dal.logO(req.params.email).then((user, err) => {
+                if(err) throw err;
+                console.log('See you next time ' + user + ' !');
+            });
+        }
+        })
+    });
 
 //update
 app.get('/account/update/:email/:amount', function (req,res) {
@@ -37,6 +84,14 @@ app.get('/account/balance/:email', function (req,res) {
         console.log(user);
         res.send(user);
     })
+});
+
+//get loggedin user
+app.get('/account/loggedin', function (req,res) {
+    dal.findOne().then((user) => {
+        console.log(user);
+        res.send(user);
+    });
 });
 
 //all accounts

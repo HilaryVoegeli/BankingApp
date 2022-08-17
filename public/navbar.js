@@ -4,10 +4,11 @@ function tooltip () {
 
 function NavBar () {
     const [active, setActive] = React.useState('#/');
+
     const setClass = (element) => (event) => {
        let link = element.href;
        setActive(link);
-    }
+    };
 
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,7 +27,10 @@ function NavBar () {
                             <a data-toggle="tooltip" data-placement="bottom" title="Create Account" className={"#/CreateAccount/" === active ? 'nav-link active' : 'nav-link'} onClick={setClass({href: "#/CreateAccount/"})} href='#/CreateAccount/'>Create Account</a>
                         </li>
                         <li className="nav-item">
-                            <a data-toggle="tooltip" data-placement="bottom" title="Login/Logout" className={"#/Login" === active ? 'nav-link active' : 'nav-link'} onClick={setClass({href:"#/Login"})} href='#/Login/'>Log In/Log Out</a>
+                            <a data-toggle="tooltip" data-placement="bottom" title="Login" className={"#/Login" === active ? 'nav-link active' : 'nav-link'} onClick={setClass({href:"#/Login"})} href='#/Login/'>Login</a>
+                        </li>
+                        <li className="nav-item">
+                            <a data-toggle="tooltip" data-placement="bottom" title="Logout" className={"#/Logout" === active ? 'nav-link active' : 'nav-link'} onClick={setClass({href:"#/Logout"})} href='#/Logout/'>Logout</a>
                         </li>
                         <li className="nav-item">
                             <a data-toggle="tooltip" data-placement="bottom" title="Made a deposit" className={"#/deposit/" === active ? 'nav-link active' : 'nav-link'} onClick={setClass({ href: "#/deposit/" })} href='#/deposit/'>Deposit</a>
@@ -42,4 +46,4 @@ function NavBar () {
             </div>
         </nav>
     );
-}
+};
