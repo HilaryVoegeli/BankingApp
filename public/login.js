@@ -2,23 +2,49 @@ function Login() {
     const [show, setShow] = React.useState(true);
     const [status, setStatus] = React.useState('');
     const [email, setEmail] = React.useState('');
+    const [errEmail, seterrEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [errPassword, seterrPassword] = React.useState('');
+    const [data, setData] = React.useState({});
 
-    const login = () => {
+    function valEmail(email) {
+        let email1 = document.getElementById('email').value;
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email1)) {
+        seterrEmail('Please enter an email');
+        console.log('email error');
+        return false;
+        } else return true;
+    };
+
+    function logg() {
+        valEmail(email);
+        if (!valEmail()) {
+            setTimeout(() => {
+                seterrEmail('');
+                },5000
+            );
+        } else {
         const url = `/account/login/${email}/${password}`;
         (async () => {
           var res = await fetch(url);
           var data = await res.json();
+          setData(data);
         })();
-        console.log('Hello ' + email);
-        setShow(false);
-        };
-
-    function clearForm(){
-        setEmail('');
-        setPassword('');
-        setShow(true);
+        // console.log(data.data !== password)
+        //   if (data.data !== password) {
+            // setTimeout(() => {
+                // seterrPassword('');
+            // },5000
+        // );} else 
+        next();
+       
     }
+};
+
+        function next() {
+            console.log('Hello ' + email);
+            setShow(false);
+        };
 
     return(
        <Card
@@ -28,15 +54,20 @@ function Login() {
         body={show ? (
             <>
             Email<br/>
-                <input placeholder="Enter Email" onChange={e => setEmail(e.target.value)} /><br/>
+                <input type='input' className="form-control" id="email" placeholder="Enter Email" value={email} onChange={e => setEmail(e.currentTarget.value)} />
+                <div style={{color: 'red'}}>{errEmail}</div><br/>
             Password<br/>
-                <input placeholder="Enter Password" onChange={e => setPassword(e.target.value)} /><br/>
-            <button disabled={!email || !password} onClick={login}>Log In</button><br/>
+                <input type="input" className="form-control" id="password" value={password} placeholder="Enter Password" onChange={e => setPassword(e.currentTarget.value)} />
+                <div style={{color: 'red'}}>{errPassword}</div>
+                <br/>
+            <button disabled={!email || !password} onClick={logg}>Log In</button><br/>
             </>
          ):(
             <>
-            <h5>Success! You are now logged into your account.</h5>
-            {/* <button type="submit" className="btn btn-light" onClick={clearForm}>Go Back to the Form</button> */}
+                <h5>Success! You are now logged into your account.</h5>
+                <a id="link" title="BadBank Home Page" href="/">
+                     <button>Continue</button>
+                </a>
             </>
         )
     }

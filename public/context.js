@@ -4,14 +4,13 @@ const HashRouter = ReactRouterDOM.HashRouter;
 const UserContext = React.createContext(null);
 let loggedin;
 
-
 function Card(props) {
     const ctx = React.useContext(UserContext);
     function classes(){
         const bg= props.bgcolor ? ' bg-' + props.bgcolor : ' ';
         const txt = props.txtcolor ? ' text-' + props.txtcolor: ' text-white';
         return 'card mb-3 ' + bg + txt;
-    }
+    };
 
     const log = ctx.users.find((el)=> {
         if(el.value === true) {
@@ -23,7 +22,7 @@ function Card(props) {
         if (log === undefined) {
             loggedin = false;
         } else loggedin = true;
-    }
+    };
     set();
 
     return(
@@ -36,4 +35,5 @@ function Card(props) {
                 {props.status && (<div id='createStatus'>{props.status}</div>)}
             </div>
             </div>   
-    )};
+    );
+};

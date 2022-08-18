@@ -19,7 +19,7 @@ function Withdraw() {
       let email = data.email;
 
     function validate(withdraw){
-        if(balance < withdraw) {
+        if (balance < withdraw) {
             alert ('Inadequate Funds Available');
             return false;
         } if (balance < 0) {
@@ -35,7 +35,7 @@ function Withdraw() {
             return false;
         }
         return true;
-    }
+    };
 
     function handleWithdraw() {
         if (!validate(withdraw)) return;
@@ -69,7 +69,8 @@ function Withdraw() {
             Balance: 
             <div key="balance" className="balance" id="balance" value={balance}>{balance}</div><br/>
             Withdraw<br/>
-            <input type="input" className="form-control" id="withdraw" placeholder="0" value={withdraw} onChange={e=> setWithdraw(e.currentTarget.value)} /><br/>
+            <input type="input" className="form-control" id="withdraw" placeholder="0" value={withdraw} onChange={e=> setWithdraw(e.currentTarget.value)} />
+            <br/>
             <button disabled={!withdraw} type="submit" className="btn btn-light" onClick={handleWithdraw}>Withdraw</button>
             </>
          ):(
@@ -82,5 +83,5 @@ function Withdraw() {
             </>
         )}
        />
-    )
-}
+    );
+};

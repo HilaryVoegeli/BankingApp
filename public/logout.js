@@ -37,13 +37,11 @@ function Logout() {
             </>
          ):(
             <>
-            <h5>Success! You are now logged out of your account.</h5>
-            <form action='/'>
-                <input type="submit" value="Go to Homepage" />
-            </form>
+              <h5>Success! You are now logged out of your account.</h5>
+              <a id="link" title="BadBank Home Page" href="/">
+                     <button>Continue</button>
+              </a>
             </>
-        )
-        }
-        />
-    )
+        )}/>
+    );
 };
