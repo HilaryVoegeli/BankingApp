@@ -1,15 +1,15 @@
 function Home() {
     const [data, setData] = React.useState({});
+
     React.useEffect(() => {
         fetch(`/account/loggedin`)
           .then(response => response.json())
           .then(data => {
-            console.log(data);
             setData(data);
           });
       }, []);
 
-    let name = data.name;
+    let name = data.name || 'there';
     let status = `Hello ${name},`;
 
     return(
@@ -17,9 +17,9 @@ function Home() {
             bgcolor="info"
             txtcolor="black"
             header={status}
-            title="Welcome to the Bank"
-            text="Log In to Begin"
+            title="Welcome to the"
+            text="Bad Bank Home Page"
             body={(<img src="bank.png" className="img-fluid" alt="Responsive image"/>)}
             />
     );
-}
+};

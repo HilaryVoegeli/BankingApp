@@ -16,7 +16,7 @@ function CreateAccount() {
         seterrEmail('Please enter an email');
         return true;
         } else return false;
-    }
+    };
 
     function valPassword(value){
         let password1 = document.getElementById('password').value;
@@ -27,7 +27,7 @@ function CreateAccount() {
             seterrPassword("Minimum 8 characters");
             return true;
         } else return false;
-    }
+    };
     
     function valName(value) {
         let name1 = document.getElementById('name').value;
@@ -35,7 +35,7 @@ function CreateAccount() {
             seterrName("Field Required");
             return true;
         } else return false;
-    }
+    };
 
     function handleCreate() {
         valName(name);
@@ -64,7 +64,7 @@ function CreateAccount() {
         setEmail('');
         setPassword('');
         setShow(true);
-    }
+    };
 
     return(
        <Card
@@ -91,5 +91,5 @@ function CreateAccount() {
               </>
             )}
         />
-    )
-}
+    );
+};

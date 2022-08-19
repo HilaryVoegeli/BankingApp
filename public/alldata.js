@@ -5,14 +5,13 @@ function AllData(){
     fetch(`/account/all`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         setData(JSON.stringify(data));
       });
   }, []);
 
   return (<>
     <h3>All Data</h3>
-    {data}
+    <h9>{data}</h9>
     </>
   );
-}
+};

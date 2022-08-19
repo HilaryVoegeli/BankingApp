@@ -9,11 +9,12 @@ function Spa() {
                 <Route path="/logout/" exact component={Logout} />
                 <Route path="/deposit/" exact component={Deposit} />
                 <Route path="/withdraw/" exact component={Withdraw} />
+                <Route path="/userProfile/" exact component={userProfile} />
                 <Route path="/alldata/" exact component={AllData} />
             </UserContext.Provider>
         </HashRouter>
         
     );
-}
+};
 
 ReactDOM.render(<Spa/>, document.getElementById("root"))

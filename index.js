@@ -26,23 +26,23 @@ app.use(express.static('public'));
 //create user account
 app.get('/account/create/:name/:email/:password', function (req, res) {
     dal.create(req.params.name, req.params.email, req.params.password).then((user) => {
-        console.log(user);
         res.send(user);
     });
 });
 
 //login
-app.get('/account/login/:email/:password/', function (req, res) {
+app.get('/account/login/:email/:password', function (req, res) {
     dal.login(req.params.email, req.params.password).then((user, err) => {
         if (err) throw err;
         else if (user == null) {
             res.send({result: "No User Exists"});
             return;
         } else if (user.password !== req.params.password) {
-            res.send({result: "Invaild Password"});
+            console.log('Invalid Password');
+            res.send({result: user.password});
+            console.log({result: user.password});
             return;
         } else {
-            // res.send({result: "Successfully Logged In"});
             dal.log(req.params.email).then((user, err) => {
                 if (err) throw err;
                 else console.log('Welcome to the bank ' + user);
@@ -52,7 +52,7 @@ app.get('/account/login/:email/:password/', function (req, res) {
     });
 
 //logout
-app.get('/account/logout/:email/:password/', function (req, res) {
+app.get('/account/logout/:email/:password', function (req, res) {
     dal.login(req.params.email, req.params.password).then((user, err) => {
         if (err) throw err;
         else if (user == null) {
@@ -70,26 +70,23 @@ app.get('/account/logout/:email/:password/', function (req, res) {
         })
     });
 
-//update
+//update money
 app.get('/account/update/:email/:amount', function (req,res) {
     dal.update(req.params.email, Number(req.params.amount)).then((user) => {
-        console.log(user)
         res.send(user);
     });
-});
-
-//balance
-app.get('/account/balance/:email', function (req,res) {
-    dal.login(req.params.email).then((user) => {
-        console.log(user);
-        res.send(user);
-    })
 });
 
 //get loggedin user
 app.get('/account/loggedin', function (req,res) {
     dal.findOne().then((user) => {
-        console.log(user);
+        res.send(user);
+    });
+});
+
+//update profile
+app.get('/account/profile/:email/:password', function (req,res) {
+    dal.profile(req.params.email, req.params.password).then((user) => {
         res.send(user);
     });
 });
@@ -97,7 +94,6 @@ app.get('/account/loggedin', function (req,res) {
 //all accounts
 app.get('/account/all', function (req, res) {
     dal.all().then((docs) => {
-        console.log(docs);
         res.send(docs);
     });
 });
