@@ -1,4 +1,4 @@
-function Logout() {
+function userProfile() {
     const [show, setShow] = React.useState(true);
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -11,14 +11,13 @@ function Logout() {
             console.log(data);
             setData(data);
             setEmail(data.email);
-            setPassword(data.password);
           });
       }, []);
 
-    let status = `Hello ${data.name}`;
+    let status = `Hello ${data.name},`;
 
-    const logout = () => {
-        const url = `/account/logout/${email}/${password}`;
+    const profile = () => {
+        const url = `/account/profile/${email}/${password}`;
         (async () => {
           var res = await fetch(url);
           var data = await res.json();
@@ -28,20 +27,20 @@ function Logout() {
 
     return(
        <Card
-        bgcolor="secondary"
+        bgcolor="dark"
         header={status}
         body={show ? (
             <>
-            <h5>Click here to log out of your account.</h5>
-            <button onClick={logout}>Log Out</button><br />
-            </>
-         ):(
-            <>
-              <h5>Success! You are now logged out of your account.</h5>
-              <a id="link" title="BadBank Home Page" href="/">
-                     <button>Continue</button>
-              </a>
-            </>
+                Change your password here.<br/>
+                New Password:<br/>
+                    <input type="input" className="form-control" id="password" value={password} placeholder="Enter Password" onChange={e => setPassword(e.currentTarget.value)} />
+                    <br/>
+                <button disabled={!password} onClick={profile}>Update</button><br/>
+                </>
+             ):(
+                <>
+                    <h5>Success! You have updated your password.</h5>
+                </>
         )}/>
     );
 };

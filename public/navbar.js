@@ -6,11 +6,13 @@ function NavBar () {
     const [active, setActive] = React.useState('#/');
     const [show, setShow] = React.useState(true);
     const [data, setData] = React.useState({});
+    const [name, setName] = React.useState('');
     React.useEffect(() => {
         fetch(`/account/loggedin`)
           .then(response => response.json())
           .then(data => {
             setData(data);
+            setName(data.name);
             setShow(false);
           });
       }, []);
@@ -55,6 +57,9 @@ function NavBar () {
                     </li>
                 </ul>
                 <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                    <span class="navbar-text" style={{color: 'red'}}>
+                        Hello {name}! 
+                    </span>
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <a data-toggle="tooltip" data-placement="bottom" title="Logout" className={"#/Logout" === active ? 'nav-link active' : 'nav-link'} onClick={setClass({href:"#/Logout"})} href='#/Logout/'>Logout</a>
@@ -64,6 +69,9 @@ function NavBar () {
                         </li>
                         <li className="nav-item">
                             <a data-toggle="tooltip" data-placement="bottom" title="Make a withdraw" className={"#/withdraw/" === active ? 'nav-link active' : 'nav-link'} onClick={setClass({ href: "#/withdraw/" })} href='#/withdraw/'>Withdraw</a>
+                        </li>
+                        <li className="nav-item">
+                            <a data-toggle="tooltip" data-placement="bottom" title="User Profile" className={"#/userProfile/" === active ? 'nav-link active' : 'nav-link'} onClick={setClass({ href: "#/userProfile/" })} href='#/userProfile/'>User Profile</a>
                         </li>
                         <li className="nav-item">
                             <a data-toggle="tooltip" data-placement="bottom" title="All Data" className={"#/alldata/" === active ? 'nav-link active' : 'nav-link'} onClick={setClass({href:"#/alldata/"})} href='#/alldata/'>All Data</a>

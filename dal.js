@@ -53,12 +53,23 @@ function logO(email) {
             });
 };
 
-// find 1 user
+// find loggedin user
 function findOne() {
     return new Promise((resolve, reject) => {
         const customers = db
             .collection('users')
             .findOne({loggedin: true})
+            .then((doc) => resolve(doc))
+            .catch((err) => reject(err));
+    });
+};
+
+//change password
+function profile(email, password) {
+    return new Promise((resolve, reject) => {
+        const customers = db
+            .collection('users')
+            .findOneAndUpdate({email: email},{$set: {password: password}})
             .then((doc) => resolve(doc))
             .catch((err) => reject(err));
     });
@@ -91,4 +102,4 @@ function all () {
     });
 };
 
-module.exports = {create, login, log, logO, findOne, update, all};
+module.exports = {create, login, log, logO, profile, findOne, update, all};

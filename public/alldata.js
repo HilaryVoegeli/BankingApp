@@ -11,7 +11,7 @@ function AllData(){
 
   return (<>
     <h3>All Data</h3>
-    {data}
+    <h9>{data}</h9>
     </>
   );
 };

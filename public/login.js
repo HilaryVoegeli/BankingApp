@@ -30,21 +30,9 @@ function Login() {
           var data = await res.json();
           setData(data);
         })();
-        // console.log(data.data !== password)
-        //   if (data.data !== password) {
-            // setTimeout(() => {
-                // seterrPassword('');
-            // },5000
-        // );} else 
-        next();
-       
-    }
-};
-
-        function next() {
-            console.log('Hello ' + email);
-            setShow(false);
-        };
+        } console.log('Hello ' + email);
+        setShow(false);
+    };
 
     return(
        <Card
@@ -69,8 +57,6 @@ function Login() {
                      <button>Continue</button>
                 </a>
             </>
-        )
-    }
-       />
+        )}/>
     )
-    };
+};

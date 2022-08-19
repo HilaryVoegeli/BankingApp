@@ -52,7 +52,7 @@ function Deposit() {
 
     return(
         <Card
-            bgcolor="primary"
+            bgcolor="success"
             header={header}
             status={status}
             body={show ? (

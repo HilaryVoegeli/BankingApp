@@ -38,8 +38,9 @@ app.get('/account/login/:email/:password', function (req, res) {
             res.send({result: "No User Exists"});
             return;
         } else if (user.password !== req.params.password) {
-            console.log('invalid passowrd');
-            res.send({data: user.password});
+            console.log('Invalid Password');
+            res.send({result: user.password});
+            console.log({result: user.password});
             return;
         } else {
             dal.log(req.params.email).then((user, err) => {
@@ -79,6 +80,13 @@ app.get('/account/update/:email/:amount', function (req,res) {
 //get loggedin user
 app.get('/account/loggedin', function (req,res) {
     dal.findOne().then((user) => {
+        res.send(user);
+    });
+});
+
+//update profile
+app.get('/account/profile/:email/:password', function (req,res) {
+    dal.profile(req.params.email, req.params.password).then((user) => {
         res.send(user);
     });
 });
