@@ -63,7 +63,7 @@ function Deposit() {
                     <input type="input" className="form-control" id="deposit" placeholder="0" value={deposit} onChange={e => setDeposit(e.currentTarget.value)} /><br />
                     <button disabled={!deposit} type="submit" className="btn btn-light" onClick={handleDeposit}>Deposit</button>
                 </>
-            ) : (
+            ):(
                 <>
                     Balance:
                     <div key="balance" className="balance" id="balance" value={balance}>{balance}</div><br />

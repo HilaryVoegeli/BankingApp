@@ -45,7 +45,7 @@ app.get('/account/login/:email/:password', function (req, res) {
         } else {
             dal.log(req.params.email).then((user, err) => {
                 if (err) throw err;
-                else console.log('Welcome to the bank ' + user);
+                else console.log('Welcome to the bank');
             });
         }
         })
@@ -64,7 +64,7 @@ app.get('/account/logout/:email/:password', function (req, res) {
         } else {
             dal.logO(req.params.email).then((user, err) => {
                 if(err) throw err;
-                console.log('See you next time ' + user + ' !');
+                console.log('See you next time');
             });
         }
         })
