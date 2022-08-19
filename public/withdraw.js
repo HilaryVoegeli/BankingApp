@@ -15,8 +15,8 @@ function Withdraw() {
           });
       }, []);
 
-      let header = `Hello ${data.name}, please make a withdraw`;
-      let email = data.email;
+    let header = `Hello ${data.name}, please make a withdraw`;
+    let email = data.email;
 
     function validate(withdraw){
         if (balance < withdraw) {

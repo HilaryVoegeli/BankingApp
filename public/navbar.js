@@ -7,6 +7,7 @@ function NavBar () {
     const [show, setShow] = React.useState(true);
     const [data, setData] = React.useState({});
     const [name, setName] = React.useState('');
+
     React.useEffect(() => {
         fetch(`/account/loggedin`)
           .then(response => response.json())
@@ -57,9 +58,7 @@ function NavBar () {
                     </li>
                 </ul>
                 <div className="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                    <span class="navbar-text" style={{color: 'red'}}>
-                        Hello {name}! 
-                    </span>
+                    <span class="navbar-text" style={{color: 'red'}}>Hello {name}!</span>
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <a data-toggle="tooltip" data-placement="bottom" title="Logout" className={"#/Logout" === active ? 'nav-link active' : 'nav-link'} onClick={setClass({href:"#/Logout"})} href='#/Logout/'>Logout</a>

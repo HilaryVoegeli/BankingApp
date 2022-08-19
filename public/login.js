@@ -52,10 +52,10 @@ function Login() {
             </>
          ):(
             <>
-                <h5>Success! You are now logged into your account.</h5>
-                <a id="link" title="BadBank Home Page" href="/">
-                     <button>Continue</button>
-                </a>
+            <h5>Success! You are now logged into your account.</h5>
+            <a id="link" title="BadBank Home Page" href="/">
+                <button>Continue</button>
+            </a>
             </>
         )}/>
     )

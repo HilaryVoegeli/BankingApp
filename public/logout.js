@@ -32,14 +32,14 @@ function Logout() {
         header={status}
         body={show ? (
             <>
-            <h5>Click here to log out of your account.</h5>
-            <button onClick={logout}>Log Out</button><br />
+              <h5>Click here to log out of your account.</h5>
+              <button onClick={logout}>Log Out</button><br />
             </>
          ):(
             <>
               <h5>Success! You are now logged out of your account.</h5>
               <a id="link" title="BadBank Home Page" href="/">
-                     <button>Continue</button>
+                  <button>Continue</button>
               </a>
             </>
         )}/>
