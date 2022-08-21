@@ -5,12 +5,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const expressSession = require('express-session');
 var app = express();
+var port = 'https://hilary-voegelifullstackbankapp.herokuapp.com/';
 
 //Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors({
-    origin:"http://localhost:3000",
+    origin: port,
     credentials: true
 }));
 app.use(expressSession({
@@ -98,6 +99,5 @@ app.get('/account/all', function (req, res) {
     });
 });
 
-var port = 3000;
 app.listen(port);
 console.log('Running on port: ' +port);
