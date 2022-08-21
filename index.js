@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const expressSession = require('express-session');
 var app = express();
-var port = 'https://hilary-voegelifullstackbankapp.herokuapp.com/';
+var port = process.env.PORT || 3000;
 
 //Middleware
 app.use(bodyParser.json());
