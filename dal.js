@@ -1,18 +1,17 @@
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb+srv://Admin:admin1@users.jg0szhe.mongodb.net/test';
 let db = null;
 
 //connect to mongo
 MongoClient.connect(url, {useUnifiedTopology: true}, function (err, client) {
     console.log('Connected to db server');
-    //connect to myproject database
-    db = client.db('myproject');
+    db = client.db('BadBank').collection('users');
 });
 
 //create user account
 function create(name, email, password) {
     return new Promise((resolve, reject) => {
-        const collection = db.collection('users');
+        const collection = db;
         const doc = {accountNumber: Math.floor(Math.random() * 1000000), name, email, password, balance: 0, loggedin: false};
         collection.insertOne(doc, {w:1}, function(err, result) {
             err ? reject(err) : resolve(doc);
@@ -24,7 +23,6 @@ function create(name, email, password) {
 function login(email) {
     return new Promise((resolve, reject) => {
         const customers = db
-            .collection('users')
             .findOne({email: email})
             .then((doc) => resolve(doc))
             .catch((err) => reject(err));
@@ -35,7 +33,6 @@ function login(email) {
 function log(email) {
     return new Promise((resolve, reject) => {
         const customers = db
-            .collection('users')
             .findOneAndUpdate({email: email},{$set: {loggedin: true}})
             .then((doc) => resolve(doc))
             .catch((err) => reject(err));
@@ -46,7 +43,6 @@ function log(email) {
 function logO(email) {
     return new Promise((resolve, reject) => {
         const customers = db
-            .collection('users')
             .findOneAndUpdate({email: email},{$set: {loggedin: false}})
             .then((doc) => resolve(doc))
             .catch((err) => reject(err));
@@ -57,7 +53,6 @@ function logO(email) {
 function findOne() {
     return new Promise((resolve, reject) => {
         const customers = db
-            .collection('users')
             .findOne({loggedin: true})
             .then((doc) => resolve(doc))
             .catch((err) => reject(err));
@@ -68,7 +63,6 @@ function findOne() {
 function profile(email, password) {
     return new Promise((resolve, reject) => {
         const customers = db
-            .collection('users')
             .findOneAndUpdate({email: email},{$set: {password: password}})
             .then((doc) => resolve(doc))
             .catch((err) => reject(err));
@@ -79,7 +73,6 @@ function profile(email, password) {
 function update(email, amount) {
     return new Promise((resolve, reject) => {
         const customers = db
-            .collection('users')
             .findOneAndUpdate(
                 {email: email},
                 {$set: {balance: amount}},
@@ -94,7 +87,6 @@ function update(email, amount) {
 function all () {
     return new Promise((resolve, reject) => {
         const customers = db
-            .collection('users')
             .find({})
             .toArray(function(err, docs) {
                 err ? reject(err) : resolve(docs);
